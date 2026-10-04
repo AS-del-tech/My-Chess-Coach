@@ -1,0 +1,6 @@
+{
+  "name": "Chess Coach — Lichess Puzzles & AI Review",
+  "description": "Personalized chess improvement with profile game analysis, Lichess puzzle training, Stockfish engine reviews, daily streak tracker, and interactive AI coaching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

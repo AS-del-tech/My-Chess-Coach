@@ -1,0 +1,32 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with chess training stats, streaks, and roadmap milestones",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique user ID matching auth.uid" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "Display name or handle" },
+        "username": { "type": "string", "description": "Chess platform username" },
+        "platform": { "type": "string", "description": "Platform (chesscom or lichess)" },
+        "currentStreak": { "type": "number", "description": "Current consecutive training days" },
+        "bestStreak": { "type": "number", "description": "Best consecutive training days" },
+        "lastActiveDate": { "type": "string", "description": "Last active training date YYYY-MM-DD" },
+        "todaySolved": { "type": "number", "description": "Puzzles solved today" },
+        "dailyGoal": { "type": "number", "description": "Daily puzzle solve goal" },
+        "unlockedBadges": { "type": "array", "description": "Unlocked achievement badges" },
+        "completedMilestones": { "type": "array", "description": "Completed roadmap milestone IDs" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile with persistent streak and training history"
+    }
+  }
+}
