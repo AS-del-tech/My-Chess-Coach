@@ -124,6 +124,18 @@ export interface ChatMessage {
   timestamp: string;
 }
 
+export interface FeedbackEntry {
+  id: string;
+  timestamp: string;
+  puzzleId: string;
+  rating: number;
+  type: 'positive' | 'negative';
+  category: string;
+  userComment: string;
+  coachReviewSummary: string;
+  status: 'new' | 'reviewed' | 'resolved';
+}
+
 export interface UserAccount {
   id: string;
   name: string;
