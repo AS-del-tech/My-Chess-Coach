@@ -6,7 +6,7 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   // The hosted preview does not expose Vite's HMR WebSocket endpoint. Keep it
   // opt-in so the Vite client does not repeatedly report closed connections.
-  const hmrEnabled = process.env.ENABLE_HMR === 'true' && process.env.DISABLE_HMR !== 'true';
+  const hmrEnabled = process.env.LOCAL_VITE_MIDDLEWARE === 'true' && process.env.DISABLE_HMR !== 'true';
 
   return {
     plugins: [react(), tailwindcss()],

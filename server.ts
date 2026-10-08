@@ -581,7 +581,10 @@ Keep responses engaging, structured with bullet points where appropriate, and un
 // Serve the built frontend by default so hosted previews do not load Vite's
 // development client, whose WebSocket cannot be reached through the preview proxy.
 async function startServer() {
-  const useViteMiddleware = !isProduction && process.env.ENABLE_HMR === 'true';
+  // Hosted previews proxy HTTP but do not expose Vite's HMR WebSocket. Keep
+  // Vite middleware opt-in for local development only so @vite/client is not
+  // injected into the preview and repeatedly reports closed connections.
+  const useViteMiddleware = !isProduction && process.env.LOCAL_VITE_MIDDLEWARE === 'true';
 
   if (useViteMiddleware) {
     const { createServer: createViteServer } = await import('vite');
