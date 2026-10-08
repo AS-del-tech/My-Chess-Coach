@@ -578,15 +578,15 @@ Keep responses engaging, structured with bullet points where appropriate, and un
   }
 });
 
-// Serve frontend in production or mount Vite in development
+// Serve the built frontend by default so hosted previews do not load Vite's
+// development client, whose WebSocket cannot be reached through the preview proxy.
 async function startServer() {
-  if (!isProduction) {
+  const useViteMiddleware = !isProduction && process.env.ENABLE_HMR === 'true';
+
+  if (useViteMiddleware) {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
-      // The hosted preview proxies the app without exposing Vite's HMR socket.
-      // Disable HMR here as well as in vite.config.ts so the injected client
-      // cannot repeatedly report a WebSocket that never opens.
-      server: { middlewareMode: true, hmr: false, watch: null },
+      server: { middlewareMode: true },
       appType: 'spa'
     });
     app.use(vite.middlewares);
@@ -599,7 +599,7 @@ async function startServer() {
   }
 
   app.listen(PORT, HOST, () => {
-    console.log(`Server listening on http://${HOST}:${PORT} (${isProduction ? 'production' : 'development'})`);
+    console.log(`Server listening on http://${HOST}:${PORT} (${isProduction ? 'production' : 'static preview'})`);
   });
 }
 
